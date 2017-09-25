@@ -505,7 +505,8 @@ var TaskModel = Backbone.Model.extend({
                 url: self.url(taskHelper.queryParams),
                 method: 'POST',
                 data: taskHelper.postData,
-                contentType: taskHelper.contentType
+                contentType: taskHelper.contentType,
+                headers: {'X-User': 'client_app'},
             }),
             pollingDefer = $.Deferred();
 
@@ -554,7 +555,7 @@ var TaskModel = Backbone.Model.extend({
                 return;
             }
 
-            self.fetch()
+            self.fetch({headers: {'X-User': 'client_app'}})
                 .done(function(response) {
                     console.log('Polling ' + self.url());
                     if (response.status === 'started') {

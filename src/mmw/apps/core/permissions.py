@@ -5,8 +5,10 @@ from __future__ import unicode_literals
 from rest_framework.permissions import BasePermission
 from rest_framework.authentication import TokenAuthentication
 
+from django.conf import settings
 
-class IsTokenAuthenticatedOrNotSwagger(BasePermission):
+
+class IsTokenAuthenticatedOrClientApp(BasePermission):
     """
     TODO This is just to test the token authentication
     Only anonymous requests from the client app should
@@ -17,8 +19,8 @@ class IsTokenAuthenticatedOrNotSwagger(BasePermission):
     """
 
     def has_permission(self, request, view):
-        from_swagger = 'api/docs' in request.META['HTTP_REFERER'] \
-                       if 'HTTP_REFERER' in request.META else False
         token_authenticated = type(request.successful_authenticator) \
             is TokenAuthentication
-        return not from_swagger or token_authenticated
+        is_client_app = 'HTTP_X_USER' in request.META and \
+                        request.META['HTTP_X_USER'] == 'client_app'
+        return is_client_app or token_authenticated

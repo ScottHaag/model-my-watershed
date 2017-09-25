@@ -15,8 +15,8 @@ from django.conf import settings
 from apps.core.models import Job
 from apps.core.tasks import (save_job_error,
                              save_job_result)
-from apps.core.permissions import IsTokenAuthenticatedOrNotSwagger
 from apps.core.decorators import log_request
+from apps.core.permissions import IsTokenAuthenticatedOrClientApp
 from apps.modeling import geoprocessing
 from apps.modeling.views import load_area_of_interest
 from apps.geoprocessing_api import tasks
@@ -24,7 +24,7 @@ from apps.geoprocessing_api import tasks
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_rwd(request, format=None):
     """
@@ -186,7 +186,7 @@ def start_rwd(request, format=None):
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_analyze_land(request, format=None):
     """
@@ -381,7 +381,7 @@ def start_analyze_land(request, format=None):
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_analyze_soil(request, format=None):
     """
@@ -508,7 +508,7 @@ def start_analyze_soil(request, format=None):
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_analyze_animals(request, format=None):
     """
@@ -619,7 +619,7 @@ def start_analyze_animals(request, format=None):
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_analyze_pointsource(request, format=None):
     """
@@ -709,7 +709,7 @@ def start_analyze_pointsource(request, format=None):
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_analyze_catchment_water_quality(request, format=None):
     """
@@ -828,7 +828,7 @@ def start_analyze_catchment_water_quality(request, format=None):
 
 @decorators.api_view(['POST'])
 @decorators.authentication_classes((TokenAuthentication, ))
-@decorators.permission_classes((IsTokenAuthenticatedOrNotSwagger, ))
+@decorators.permission_classes((IsTokenAuthenticatedOrClientApp, ))
 @log_request
 def start_analyze_climate(request, format=None):
     """
