@@ -1,4 +1,7 @@
 ---
+- name: Upgrade pip
+  pip: name="pip" extra_args="--upgrade"
+
 - name: Install application Python dependencies for development and test
   pip: chdir={{ app_home }}/requirements requirements={{ item }}.txt
   with_items:
