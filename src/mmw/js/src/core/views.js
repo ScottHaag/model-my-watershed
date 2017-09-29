@@ -812,6 +812,9 @@ var MapView = Marionette.ItemView.extend({
                 featureGroup.addLayer(layer);
             }
         }
+
+        // Close any popup that might be on the map
+        this._leafletMap.closePopup();
     },
 
     bindDataCatalogPopovers: function(SinglePopoverView, ListPopoverView,
@@ -890,8 +893,9 @@ var MapView = Marionette.ItemView.extend({
                     { className: 'data-catalog-popover-list' });
         };
 
-        // Remove all existing event listeners that might be from the other catalogs
+        // Remove all existing event listeners/popups that might be from the other catalogs
         this._dataCatalogResultsLayer.removeEventListener();
+        this._leafletMap.closePopup();
 
         // Listen for clicks on the currently active layer
         this._dataCatalogResultsLayer.on('click', handleClick);
